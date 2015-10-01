@@ -1,0 +1,32 @@
+An example to run drools inside spark. 
+
+1. This tries to run the logic at http://www.mdcalc.com/sirs-sepsis-and-septic-shock-criteria/
+
+2. The relevant drools decision table file is in src/main/resources/sepsis.xls
+
+3. The driver program takes three parameters
+
+   1. zookeeper info
+   2. rules xls file
+   3. open tsdb url
+   
+   Comment out lines 94 in SepsisStream.scala, if you do not have opentsdb setup. 
+   Comment out lines 69 & 80 if you do not have HBase setup
+
+4. Toggle lines 40 & 41 in SepsisStream.scala to run in local mode
+
+5. The program generates sample data using a queueRDD
+
+
+To Run:
+
+mvn package
+
+If using HBase, create the test hbase table. Sample script in src/main/resource/create_hbase_table.rb
+
+start streaming using
+spark-submit --driver-java-options '-Dspark.executor.extraClassPath=/opt/cloudera/parcels/CDH/lib/hbase/lib/htrace-core-3.1.0-incubating.jar' --master yarn-client --files sepsis.xls --class com.cloudera.sprue.SepsisStream /root/sprue-0.0.1-SNAPSHOT-jar-with-dependencies.jar sepsis.xls host.domain:2181 http://host.domain:4242/api/put
+
+  The spark.executor.extraClassPath option is to work around a classpath issue in hbase on cdh4.5
+  The files option uploads the xls file to the spark executors
+  

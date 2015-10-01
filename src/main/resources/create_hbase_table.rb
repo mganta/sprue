@@ -1,0 +1,1 @@
+create 'patientData', {NAME => 'cf1', VERSIONS => 3, REPLICATION_SCOPE => 1, COMPRESSION => 'SNAPPY'}

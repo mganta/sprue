@@ -1,0 +1,1 @@
+spark-submit --driver-java-options '-Dspark.executor.extraClassPath=/opt/cloudera/parcels/CDH/lib/hbase/lib/htrace-core-3.1.0-incubating.jar' --master yarn-client --files sepsis.xls --class com.cloudera.sprue.SepsisStream /root/sprue-0.0.1-SNAPSHOT-jar-with-dependencies.jar sepsis.xls host.domain:2181 http://host.domain:4242/api/put
