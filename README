@@ -25,8 +25,9 @@ mvn package
 If using HBase, create the test hbase table. Sample script in src/main/resource/create_hbase_table.rb
 
 start streaming using
+
 spark-submit --driver-java-options '-Dspark.executor.extraClassPath=/opt/cloudera/parcels/CDH/lib/hbase/lib/htrace-core-3.1.0-incubating.jar' --master yarn-client --files sepsis.xls --class com.cloudera.sprue.SepsisStream /root/sprue-0.0.1-SNAPSHOT-jar-with-dependencies.jar sepsis.xls host.domain:2181 http://host.domain:4242/api/put
 
-  The spark.executor.extraClassPath option is to work around a classpath issue in hbase on cdh4.5
-  The files option uploads the xls file to the spark executors
+The spark.executor.extraClassPath option is to work around a classpath issue in hbase on cdh4.5
+The files option uploads the xls file to the spark executors
   
