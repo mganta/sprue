@@ -17,6 +17,7 @@ An example to run drools with spark.
 4. The program generates sample data using a queueRDD
 
 
+
 To Run (This has been tested on a CDH5.4 cluster):
 
 1. mvn clean package
@@ -36,5 +37,5 @@ To Run (This has been tested on a CDH5.4 cluster):
 		sepsis.xls zookeeper.host.domain:2181 
 		http://opentsdb.host.domain:4242/api/put
 
-	The spark.executor.extraClassPath option is to work around a classpath issue in hbase on cdh5.4
+	The spark.executor.extraClassPath option is a classpath workaround for spark on hbase on cdh5.4
 	The files option uploads the xls file to the spark executors
