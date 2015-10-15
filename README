@@ -1,34 +1,40 @@
-An example to run drools inside spark. 
+An example to run drools with spark. 
 
-1. This tries to run the logic at http://www.mdcalc.com/sirs-sepsis-and-septic-shock-criteria/
+	1. This tries to run the logic at http://www.mdcalc.com/sirs-sepsis-and-septic-shock-criteria/
 
-2. The relevant drools decision table file is in src/main/resources/sepsis.xls
+	2. The relevant drools decision table file is in src/main/resources/sepsis.xls
 
-3. The driver program takes three parameters
+	3. The driver program takes three parameters
 
-   a. zookeeper info
-   b. rules xls file
-   c. open tsdb url
+   		a. zookeeper info
+   		b. rules xls file
+   		c. open tsdb url
    
-   	Comment out lines 94 in SepsisStream.scala, if you do not have opentsdb setup. 
-   	Comment out lines 69 & 80 if you do not have HBase setup
-   	Toggle lines 40 & 41 in SepsisStream.scala to run in local mode
+   		Comment out lines 94 in SepsisStream.scala, if you do not have opentsdb setup. 
+   		Comment out lines 69 & 80 if you do not have HBase setup
+   		Toggle lines 40 & 41 in SepsisStream.scala to run in local mode
 
-5. The program generates sample data using a queueRDD
+	4. The program generates sample data using a queueRDD
 
 
 To Run (This has been tested on a CDH5.4 cluster):
 
-1. mvn clean package
+	1. mvn clean package
 
-2. Create the hbase table. Sample script in src/main/resource/create_hbase_table.rb
+	2. Create the hbase table. Sample script in src/main/resource/create_hbase_table.rb
 
-3. Install opentsdb (http://opentsdb.net/docs/build/html/installation.html)
+	3. Install opentsdb (http://opentsdb.net/docs/build/html/installation.html)
 
-3. Start spark streaming using
+	4. Start spark streaming using
 
-	spark-submit --driver-java-options '-Dspark.executor.extraClassPath=/opt/cloudera/parcels/CDH/lib/hbase/lib/htrace-core-3.1.0-incubating.jar' --master yarn-client --files sepsis.xls --class com.cloudera.sprue.SepsisStream /path_to/sprue-0.0.1-SNAPSHOT-jar-with-dependencies.jar sepsis.xls zookeeper.host.domain:2181 http://opentsdb.host.domain:4242/api/put
+		spark-submit --driver-java-options 
+					'-Dspark.executor.extraClassPath=/opt/cloudera/parcels/CDH/lib/hbase/lib/htrace-core-3.1.0-incubating.jar' 
+		             --master yarn-client 
+		             --files sepsis.xls 
+		             --class com.cloudera.sprue.SepsisStream 
+		             /path_to/sprue-0.0.1-SNAPSHOT-jar-with-dependencies.jar 
+		             sepsis.xls zookeeper.host.domain:2181 
+		             http://opentsdb.host.domain:4242/api/put
 
-	The spark.executor.extraClassPath option is to work around a classpath issue in hbase on cdh5.4
-	The files option uploads the xls file to the spark executors
-  
+		The spark.executor.extraClassPath option is to work around a classpath issue in hbase on cdh5.4
+		The files option uploads the xls file to the spark executors
