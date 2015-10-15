@@ -10,7 +10,7 @@ An example to run drools with spark.
    	b. rules xls file
    	c. open tsdb url
    
-   	Comment out lines 94 in SepsisStream.scala, if you do not have opentsdb setup. 
+   	Comment out line 94 in SepsisStream.scala, if you do not have opentsdb setup
    	Comment out lines 69 & 80 if you do not have HBase setup
    	Toggle lines 40 & 41 in SepsisStream.scala to run in local mode
 
